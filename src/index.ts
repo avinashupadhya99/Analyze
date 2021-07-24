@@ -28,10 +28,6 @@ client.on('message', async (message) => {
                             console.log(data);
                         });
                     })
-                    // audioStreams[message.author.id] = connection.receiver.createStream(message.author, { mode: 'pcm', end: 'manual' });
-                    // audioStreams[message.author.id].on('data', (data: any) => {
-                    //     console.log(data);
-                    // });
                 }).catch((error: any) => {
                     console.error(error);
                     return message.reply("Something went wrong");
@@ -43,6 +39,10 @@ client.on('message', async (message) => {
                 // Get the client's voiceConnection
                 let clientVoiceConnection = message.guild?.voice?.connection;
                 clientVoiceConnection.disconnect();
+                Object.keys(audioStreams).forEach((user: string) => {
+                    audioStreams[user].destroy();
+                    delete audioStreams[user];
+                });
             break;
         }
     }
