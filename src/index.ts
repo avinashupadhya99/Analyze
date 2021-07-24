@@ -6,12 +6,13 @@ const PREFIX = '!';
 
 const client: Client = new Client();
 
+let audioStreams: { [key: string]: ReadableStream; } = {};
+
 client.on('ready', () => {
     console.log("Bot is alive");
 });
 
 client.on('message', async (message) => {
-    console.log(message);
     if(message.author.bot) return;
     if(message.content.startsWith(PREFIX)) {
         const [CMD_NAME, ...args] = message.content.trim().substring(PREFIX.length).split("\n");
@@ -20,8 +21,18 @@ client.on('message', async (message) => {
                 const channel = message.member?.voice.channel;
                 if (!channel) return message.reply("Please join a voice channel to invite the bot");
                 channel.join().then((connection: VoiceConnection) => {
-                    console.log(connection);
-                }).catch(error => {
+                    // console.log(connection);
+                    channel.members.forEach((member: GuildMember) => {
+                        audioStreams[member.id] = connection.receiver.createStream(message.author, { mode: 'pcm', end: 'manual' });
+                        audioStreams[member.id].on('data', (data: any) => {
+                            console.log(data);
+                        });
+                    })
+                    // audioStreams[message.author.id] = connection.receiver.createStream(message.author, { mode: 'pcm', end: 'manual' });
+                    // audioStreams[message.author.id].on('data', (data: any) => {
+                    //     console.log(data);
+                    // });
+                }).catch((error: any) => {
                     console.error(error);
                     return message.reply("Something went wrong");
                 });

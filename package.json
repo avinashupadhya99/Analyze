@@ -23,6 +23,7 @@
     "discord-bot"
   ],
   "dependencies": {
+    "@discordjs/opus": "github:discordjs/opus",
     "discord.js": "^12.5.3",
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.0.2",

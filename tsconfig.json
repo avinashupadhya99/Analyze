@@ -6,7 +6,7 @@
     "outDir": "./prod",
     "strict": true,
     "esModuleInterop": true,
-    "lib": ["es2020.string"],
+    "lib": ["dom", "es2020.string"],
     "skipLibCheck": true,
     "strictPropertyInitialization": false,
     "experimentalDecorators": true,
