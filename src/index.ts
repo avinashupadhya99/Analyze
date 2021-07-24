@@ -26,6 +26,13 @@ client.on('message', async (message) => {
                     return message.reply("Something went wrong");
                 });
             break;
+            case 'leave':
+                if(!message.guild?.voice?.connection)
+                    return;
+                // Get the client's voiceConnection
+                let clientVoiceConnection = message.guild?.voice?.connection;
+                clientVoiceConnection.disconnect();
+            break;
         }
     }
 });
