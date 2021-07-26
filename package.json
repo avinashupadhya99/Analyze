@@ -25,9 +25,12 @@
   "dependencies": {
     "@discordjs/opus": "github:discordjs/opus",
     "discord.js": "^12.5.3",
+    "ffmpeg": "0.0.4",
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.0.2",
-    "typeorm": "^0.2.34"
+    "symbl-node": "^1.0.13",
+    "typeorm": "^0.2.34",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/node": "^15.12.4",
